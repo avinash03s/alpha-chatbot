@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Alpha</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"
+          rel="stylesheet">
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="container">
+
+    <header class="header">
+
+        <div class="brand">
+
+            <img src="assets/logo.svg" alt="Alpha">
+
+            <span>Alpha</span>
+
+        </div>
+
+        <button id="themeBtn" class="theme-btn" aria-label="Toggle theme">
+            <i class="ti ti-moon"></i>
+        </button>
+
+    </header>
+
+    <main class="chat-wrapper">
+
+        <div id="chatBody" class="chat-body">
+
+            <div class="hero">
+
+                <img
+                        src="assets/logo.svg"
+                        alt="Alpha"
+                        class="hero-logo">
+
+                <h1>Alpha</h1>
+
+                <p>
+                    Your AI assistant for questions,
+                    ideas, research, learning,
+                    productivity, and everyday work.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="input-wrapper">
+
+            <div class="input-box">
+
+                <textarea
+                        id="question"
+                        rows="1"
+                        placeholder="Message Alpha..."
+                        aria-label="Message input">
+                </textarea>
+
+                <button id="sendBtn" aria-label="Send message">
+                    <i class="ti ti-send"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

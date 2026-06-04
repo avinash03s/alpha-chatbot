@@ -1,6 +1,5 @@
-package com.ai_integration.service.serviceImp;
+package com.ai_integration.provider;
 
-import com.ai_integration.service.AIProvider;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

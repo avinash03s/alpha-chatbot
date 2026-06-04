@@ -1,6 +1,5 @@
-package com.ai_integration.service.serviceImp;
+package com.ai_integration.provider;
 
-import com.ai_integration.service.AIProvider;
 import com.google.genai.Client;
 import com.google.genai.types.GenerateContentResponse;
 import lombok.RequiredArgsConstructor;

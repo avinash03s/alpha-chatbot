@@ -1,5 +1,6 @@
 package com.ai_integration.service.serviceImp;
 
+import com.ai_integration.provider.*;
 import com.ai_integration.service.GeminiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,8 @@ public class GeminiServiceImp implements GeminiService {
     private final GeminiProvider geminiProvider;
     private final GroqProvider groqProvider;
     private final OpenRouterProvider openRouterProvider;
+    private final CohereProvider cohereProvider;
+    private final MistralProvider mistralProvider;
 
     @Override
     public String askGemini(String prompt) {
@@ -44,6 +47,22 @@ public class GeminiServiceImp implements GeminiService {
                         return cleanResponse(openRouterProvider.ask(formattedPrompt));
                     } catch (Exception exc) {
                         log.error("OpenRouter Failed: {}", exc.getMessage());
+
+                        //Cohere
+                        try {
+                            log.info("Trying Cohere");
+                            return cleanResponse(cohereProvider.ask(formattedPrompt));
+                        } catch (Exception e1) {
+                            log.error("Cohere Failed: {}",e1.getMessage());
+
+                            //Mistral
+                            try {
+                                log.info("Trying Mistral..");
+                                return cleanResponse(mistralProvider.ask(formattedPrompt));
+                            } catch (Exception e2) {
+                                log.error("Mist Failed: {}",e2.getMessage());
+                            }
+                        }
                     }
                 }
             }

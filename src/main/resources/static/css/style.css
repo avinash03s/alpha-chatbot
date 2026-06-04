@@ -338,6 +338,7 @@ body {
 
 .message {
     max-width: 860px;
+    width: 100%;
     margin: 14px auto;
     display: flex;
     align-items: flex-start;

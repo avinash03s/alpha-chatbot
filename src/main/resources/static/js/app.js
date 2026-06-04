@@ -9,6 +9,7 @@ const refreshBtn    = document.getElementById("refreshBtn");
 const brandBtn      = document.getElementById("brandBtn");
 const brandPopup    = document.getElementById("brandPopup");
 
+// ── Theme ──────────────────────────────────────────────────────────
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme === "light") {
     document.body.classList.add("light-theme");
@@ -24,6 +25,7 @@ themeBtn.addEventListener("click", function () {
     themeIcon.className = isLight ? "ti ti-moon" : "ti ti-sun";
 });
 
+// ── Brand popup ────────────────────────────────────────────────────
 var popupOpen = false;
 
 brandBtn.addEventListener("click", function (e) {
@@ -39,11 +41,31 @@ document.addEventListener("click", function (e) {
     }
 });
 
-function buildHero() {
-    var hero = document.createElement("div");
-    hero.className = "hero";
-    hero.id = "heroSection";
-    hero.innerHTML =
+// ── Chip helpers ───────────────────────────────────────────────────
+var chipMap = {
+    chip1: "Summarize something for me",
+    chip2: "Help me brainstorm ideas",
+    chip3: "Write a professional email",
+    chip4: "Explain a concept to me"
+};
+
+function attachChipListeners() {
+    Object.keys(chipMap).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) {
+            el.addEventListener("click", function () {
+                quickAsk(chipMap[id]);
+            });
+        }
+    });
+}
+
+attachChipListeners();
+
+// ── Refresh ────────────────────────────────────────────────────────
+refreshBtn.addEventListener("click", function () {
+    chatBody.innerHTML =
+        '<div class="hero" id="heroSection">' +
         '<img src="assets/logo.svg" alt="Alpha" class="hero-logo">' +
         '<h1>Alpha</h1>' +
         '<p>Your AI assistant for questions, ideas, research, learning, productivity, and everyday work.</p>' +
@@ -52,39 +74,13 @@ function buildHero() {
         '<button class="chip" id="chip2">Brainstorm</button>' +
         '<button class="chip" id="chip3">Write email</button>' +
         '<button class="chip" id="chip4">Explain</button>' +
-        '</div>';
-    return hero;
-}
-
-function attachChipListeners() {
-    var chips = {
-        chip1: 'Summarize something for me',
-        chip2: 'Help me brainstorm ideas',
-        chip3: 'Write a professional email',
-        chip4: 'Explain a concept to me'
-    };
-    Object.keys(chips).forEach(function (id) {
-        var el = document.getElementById(id);
-        if (el) {
-            el.addEventListener("click", function () {
-                quickAsk(chips[id]);
-            });
-        }
-    });
-}
-
-// Attach listeners to chips already in the HTML on page load
-attachChipListeners();
-
-refreshBtn.addEventListener("click", function () {
-    chatBody.innerHTML = "";
+        '</div></div>';
     popupOpen = false;
     brandPopup.classList.remove("open");
-    var hero = buildHero();
-    chatBody.appendChild(hero);
     attachChipListeners();
 });
 
+// ── Utilities ──────────────────────────────────────────────────────
 function hideHero() {
     var hero = document.querySelector(".hero");
     if (hero) hero.remove();
@@ -94,26 +90,20 @@ function quickAsk(text) {
     questionInput.value = text;
     askAI();
 }
-
-// Make quickAsk globally accessible as a safety fallback
 window.quickAsk = quickAsk;
 
 function scrollToBottom() {
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
+// ── Messages ───────────────────────────────────────────────────────
 function addMessage(text, type) {
     hideHero();
-
     var wrapper = document.createElement("div");
     wrapper.className = "message " + type;
-
-    var avatarLabel = type === "bot" ? "A" : "U";
-
     wrapper.innerHTML =
-        '<div class="msg-avatar">' + avatarLabel + '</div>' +
+        '<div class="msg-avatar">' + (type === "bot" ? "A" : "U") + '</div>' +
         '<div class="bubble">' + text + '</div>';
-
     chatBody.appendChild(wrapper);
     scrollToBottom();
 }
@@ -130,10 +120,11 @@ function showTyping() {
 }
 
 function removeTyping() {
-    var typing = document.getElementById("typing");
-    if (typing) typing.remove();
+    var el = document.getElementById("typing");
+    if (el) el.remove();
 }
 
+// ── Send ───────────────────────────────────────────────────────────
 async function askAI() {
     var question = questionInput.value.trim();
     if (!question) return;
@@ -141,7 +132,6 @@ async function askAI() {
     addMessage(question, "user");
     questionInput.value = "";
     questionInput.style.height = "auto";
-    questionInput.style.height = questionInput.scrollHeight + "px";
 
     showTyping();
     sendBtn.disabled = true;
@@ -152,36 +142,23 @@ async function askAI() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ question: question })
         });
-
         removeTyping();
-
-        if (!response.ok) {
-            addMessage("Something went wrong. Please try again.", "bot");
-            return;
-        }
-
+        if (!response.ok) { addMessage("Something went wrong. Please try again.", "bot"); return; }
         var answer = await response.text();
         addMessage(answer, "bot");
-
-    } catch (error) {
+    } catch (err) {
         removeTyping();
         addMessage("Unable to connect to Alpha. Check your connection.", "bot");
-        console.error(error);
-
+        console.error(err);
     } finally {
         sendBtn.disabled = false;
     }
 }
 
-sendBtn.addEventListener("click", function () {
-    askAI();
-});
+sendBtn.addEventListener("click", function () { askAI(); });
 
 questionInput.addEventListener("keydown", function (e) {
-    if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        askAI();
-    }
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); askAI(); }
 });
 
 questionInput.addEventListener("input", function () {

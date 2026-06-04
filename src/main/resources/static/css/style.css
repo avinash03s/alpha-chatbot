@@ -47,7 +47,8 @@ body {
     font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--bg);
     color: var(--text);
-    overflow: hidden;
+    /* FIXED: overflow:hidden freezes iOS when keyboard opens — use clip instead */
+    overflow: clip;
     height: 100vh;
     height: 100dvh;
     -webkit-text-size-adjust: 100%;
@@ -233,6 +234,10 @@ body {
     transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.15s;
     flex-shrink: 0;
     -webkit-tap-highlight-color: transparent;
+    /* FIXED: ensure tap targets are always clickable */
+    touch-action: manipulation;
+    position: relative;
+    z-index: 10;
 }
 
 .icon-btn:hover {
@@ -258,10 +263,10 @@ body {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 24px 16px;
-    scroll-behavior: smooth;
     background: var(--bg);
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+    /* FIXED: removed -webkit-overflow-scrolling (deprecated, causes bugs) */
+    /* FIXED: removed scroll-behavior:smooth (blocks scrollTop on iOS) */
+    overscroll-behavior-y: contain;
 }
 
 .chat-body::-webkit-scrollbar {
@@ -320,6 +325,9 @@ body {
     transition: all 0.15s;
     white-space: nowrap;
     font-family: inherit;
+    /* FIXED: better tap response on mobile */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .chip:hover {
@@ -455,13 +463,15 @@ body {
     background: transparent;
     color: var(--text);
     font-family: inherit;
-    font-size: 14px;
+    /* FIXED: must be 16px to prevent iOS Safari auto-zoom on focus */
+    font-size: 16px;
     min-height: 36px;
     max-height: 140px;
     padding: 6px 0;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     line-height: 1.5;
+    /* FIXED: prevents double-tap zoom on mobile */
+    touch-action: manipulation;
 }
 
 .input-box textarea::placeholder {
@@ -485,6 +495,8 @@ body {
     justify-content: center;
     transition: background .15s, border-color .15s, transform .15s;
     -webkit-tap-highlight-color: transparent;
+    /* FIXED: instant tap response, no 300ms delay */
+    touch-action: manipulation;
 }
 
 .input-box button:hover {
@@ -527,7 +539,6 @@ body {
     .status-text { display: none; }
 }
 
-
 @media (max-width: 480px) {
     .header { height: 50px; padding: 0 12px; }
     .brand img { width: 26px; height: 26px; }
@@ -544,6 +555,7 @@ body {
     .bot .bubble  { border-radius: 4px 12px 12px 12px; }
     .input-wrapper { padding: 8px 10px; padding-bottom: max(8px, env(safe-area-inset-bottom)); }
     .input-box { border-radius: 10px; padding: 6px 6px 6px 12px; }
-    .input-box textarea { font-size: 13px; }
+    /* FIXED: 16px always — never go below, even on small screens */
+    .input-box textarea { font-size: 16px; }
     .input-box button { width: 34px; height: 34px; border-radius: 8px; }
 }

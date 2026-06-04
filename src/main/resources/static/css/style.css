@@ -3,8 +3,8 @@
     --card: #0f0f10;
     --surface: #18181b;
     --border: #27272a;
-    --primary: #27272a;
-    --primary-hover: #3f3f46;
+    --primary: #0284c7;
+    --primary-hover: #0369a1;
     --text: #fafafa;
     --muted: #71717a;
     --btn-bg: #27272a;
@@ -299,7 +299,7 @@ body {
 }
 
 .bot .msg-avatar { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
-.user .msg-avatar { background: var(--primary); border: 1px solid var(--primary-hover); color: var(--btn-color); }
+.user .msg-avatar { background: var(--primary); border: 1px solid var(--primary-hover); color: #ffffff; }
 
 .bubble {
     padding: 10px 14px;
@@ -313,7 +313,7 @@ body {
 
 .user .bubble {
     background: var(--primary);
-    color: var(--text);
+    color: #ffffff;
     border: 1px solid var(--primary-hover);
     border-radius: 12px 4px 12px 12px;
 }

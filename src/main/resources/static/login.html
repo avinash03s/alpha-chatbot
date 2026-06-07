@@ -1,0 +1,84 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />-->
+<!--  <title>Login – Alpha</title>-->
+<!--  <link rel="stylesheet" href="css/style.css" />-->
+<!--  <link rel="stylesheet" href="css/auth.css" />-->
+<!--  <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet" />-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="background"></div>-->
+
+<!--<div class="auth-page">-->
+<!--  <div class="auth-card">-->
+
+<!--    <div class="auth-brand">-->
+<!--      <img src="assets/logo.svg" alt="Alpha" class="auth-logo" />-->
+<!--      <span class="auth-brand-name">Alpha</span>-->
+<!--      <span class="auth-badge">Beta</span>-->
+<!--    </div>-->
+
+<!--    <h1 class="auth-title">Welcome back</h1>-->
+<!--    <p class="auth-sub">Sign in to continue to Alpha</p>-->
+
+<!--    <div class="auth-alert auth-alert-error" id="errorAlert" style="display:none;">-->
+<!--      <i class="ti ti-alert-circle"></i>-->
+<!--      Invalid email or password. Please try again.-->
+<!--    </div>-->
+
+<!--    <form class="auth-form" id="loginForm" action="/login" method="post">-->
+
+<!--      <div class="auth-field">-->
+<!--        <label for="email">Email</label>-->
+<!--        <div class="auth-input-wrap">-->
+<!--          <i class="ti ti-mail"></i>-->
+<!--          <input type="email" id="email" name="username"-->
+<!--                 placeholder="you@example.com" autocomplete="email" required />-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <div class="auth-field">-->
+<!--        <label for="password">Password</label>-->
+<!--        <div class="auth-input-wrap">-->
+<!--          <i class="ti ti-lock"></i>-->
+<!--          <input type="password" id="password" name="password"-->
+<!--                 placeholder="Enter your password" autocomplete="current-password" required />-->
+<!--          <button type="button" class="toggle-eye" onclick="togglePwd('password', this)" tabindex="-1">-->
+<!--            <i class="ti ti-eye"></i>-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <button type="submit" class="auth-btn">-->
+<!--        <i class="ti ti-login"></i> Sign in-->
+<!--      </button>-->
+
+<!--    </form>-->
+
+<!--    <p class="auth-switch">-->
+<!--      Don't have an account? <a href="register.html">Create one</a>-->
+<!--    </p>-->
+
+<!--  </div>-->
+<!--  <p class="auth-footer-hint">Alpha can make mistakes. Verify important info.</p>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--  function togglePwd(id, btn) {-->
+<!--    const input = document.getElementById(id);-->
+<!--    const icon  = btn.querySelector('i');-->
+<!--    input.type  = input.type === 'password' ? 'text' : 'password';-->
+<!--    icon.className = input.type === 'password' ? 'ti ti-eye' : 'ti ti-eye-off';-->
+<!--  }-->
+
+<!--  // Show error if URL has ?error-->
+<!--  if (new URLSearchParams(location.search).has('error')) {-->
+<!--    document.getElementById('errorAlert').style.display = 'flex';-->
+<!--  }-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->

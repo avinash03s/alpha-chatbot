@@ -57,7 +57,7 @@ public class GeminiServiceImp implements GeminiService {
             ExecutorService ex = Executors.newSingleThreadExecutor();
             try {
                 log.info("Trying {}...", name);
-                String result = ex.submit(entry.getValue()).get(8, TimeUnit.SECONDS);
+                String result = ex.submit(entry.getValue()).get(3, TimeUnit.SECONDS);
                 healthTracker.record(name);
 
                 String cleaned = cleanResponse(result);

@@ -2,6 +2,7 @@ package com.ai_integration.provider;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,7 +15,7 @@ public class MistralProvider implements AIProvider {
     @Value("${mistral.api.key}")
     private String apiKey;
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate = buildRestTemplate();
     private static final String URL = "https://api.mistral.ai/v1/chat/completions";
 
     @Override
@@ -35,5 +36,12 @@ public class MistralProvider implements AIProvider {
         List<Map<String, Object>> choices = (List<Map<String, Object>>) response.getBody().get("choices");
         Map<String, Object> message = (Map<String, Object>) choices.get(0).get("message");
         return (String) message.get("content");
+    }
+
+    private RestTemplate buildRestTemplate() {
+        SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
+        factory.setConnectTimeout(3000);
+        factory.setReadTimeout(3000);
+        return new RestTemplate(factory);
     }
 }

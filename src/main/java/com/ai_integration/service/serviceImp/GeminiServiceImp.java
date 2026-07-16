@@ -24,6 +24,7 @@ public class GeminiServiceImp implements GeminiService {
     private final MistralProvider mistralProvider;
     private final ProviderHealthTracker healthTracker;
     private final ExecutorService executorService;
+    private final OpenAIProvider openAIProvider;
 
     // Cache
 //    private final Map<String, String> cache = new ConcurrentHashMap<>();
@@ -157,6 +158,8 @@ public class GeminiServiceImp implements GeminiService {
     private Map<String, Callable<String>> getStringCallableMap(String prompt) {
 
         Map<String, Callable<String>> providers = new LinkedHashMap<>();
+
+        providers.put("OpenAI", () -> openAIProvider.ask(prompt));
 
         providers.put("Groq", () -> groqProvider.ask(prompt));
 

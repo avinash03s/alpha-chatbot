@@ -1,3 +1,8 @@
+- Name : Alpha Ai Chat
+- Version : 1.0
+- Deployment : Vercel(UI) & Render(Backend)
+- Tech : Backend - Java, Spring Boot, Gemini API, Groq API, Openrouter API
+- Tech : UI - React.js, Typescript
 
 - Home
   
